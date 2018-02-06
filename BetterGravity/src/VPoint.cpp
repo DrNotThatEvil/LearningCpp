@@ -137,7 +137,7 @@ namespace wilvin
         ( *m_oldPos ).setY( y );
     }
 
-    void VPoint::render( Screen &screen ) const
+    void VPoint::render( Screen &screen )
     {
         Uint8 alpha = 0xFF;
 

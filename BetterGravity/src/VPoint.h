@@ -55,7 +55,7 @@ namespace wilvin
         void setY( const float y );
         void setOldX( const float x );
         void setOldY( const float y );
-        void render( Screen &screen ) const;
+        void render( Screen &screen );
         void update();
         void colide( VPoint &target );
         void colideNonMove( VPoint &target );

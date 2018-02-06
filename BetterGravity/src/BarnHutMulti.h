@@ -1,6 +1,9 @@
 #ifndef BARNHUTMULTI_H
 #define BARNHUTMULTI_H
 
+#include "VPoint.h"
+#include <vector>
+
 namespace wilvin
 {
     class BarnHutMulti
@@ -14,23 +17,24 @@ namespace wilvin
         int m_wRemaining;
         bool m_running;
         bool m_done;
-        int m_availableThreads;
+        int m_avilableThreads;
         std::vector<VPoint *> m_contained;
         std::vector<SDL_Thread *> m_pThreads;
-        std::unique_ptr<BarnHutMulti> m_parent;
-        std::unique_ptr<BarnHutMulti[]> m_children;
+        std::shared_ptr<BarnHutMulti> m_parent;
+        std::vector<std::unique_ptr<BarnHutMulti>> m_children;
 
     protected:
         static int startThread( void *data );
 
     private:
         int thread();
-        void setParentThread( BarnHutMulti *parent );
-        std::vector<VPoint *> getContained( int x,
-                                            int y,
-                                            int width,
-                                            int height,
-                                            std::vector<VPoint *> possible );
+        void setParentThread( std::shared_ptr<BarnHutMulti> parent );
+        static std::vector<VPoint *>
+        getContained( int x,
+                      int y,
+                      int width,
+                      int height,
+                      std::vector<VPoint *> possible );
 
     public:
         BarnHutMulti( const int x,
