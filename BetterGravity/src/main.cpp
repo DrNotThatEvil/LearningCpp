@@ -36,7 +36,7 @@ int main( void )
             // wilvin::VPoint vpoint( 200.0f, 500.0f, 200.0f, 500.0f );
 
             barnmulti.startSolve();
-            for ( int i = 0; i < 1000; i++ )
+            for ( int i = 0; i < 10; i++ )
             {
                 screen.clear();
 
@@ -45,6 +45,7 @@ int main( void )
                 barnmulti.render( &screen );
 
                 screen.update();
+                std::cout << "Learning cpp" << std::endl;
             }
 
 
@@ -53,6 +54,8 @@ int main( void )
 
         std::cout << "Quiting..." << std::endl;
 
+        delete vpoint;
+        delete vpoint2;
         // Screen init failed we need to let it go screen out of scope
         // And call SDL_Quit.
     }

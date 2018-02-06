@@ -1,4 +1,5 @@
 #include "BarnHutMulti.h"
+#include <iostream>
 
 namespace wilvin
 {
@@ -17,12 +18,18 @@ namespace wilvin
     {
         m_avilableThreads = m_numThreads;
         m_done = false;
-        m_running = true;
+        m_running = false;
         m_wRemaining = 4;
     }
 
     BarnHutMulti::~BarnHutMulti()
     {
+        if ( m_children.size() == 0 ) return;
+
+        for ( unsigned int i = 0; i < m_children.size(); i++ )
+        {
+            delete m_children.at( i ).get();
+        }
     }
 
     int BarnHutMulti::startThread( void *data )
@@ -52,9 +59,10 @@ namespace wilvin
     {
         // SDL_Thread *thread_1;
         // thread_1 = SDL_CreateThread( BarnHutMulti::startWork, (void *)this );
+        if ( m_running ) return;
+
         m_avilableThreads = m_numThreads;
         m_done = false;
-        m_running = false;
         m_wRemaining = 4;
         this->thread();
     }
@@ -65,7 +73,7 @@ namespace wilvin
         // continue. If so we don't really need to continue and need to notify
         // the parent thread we are done.
 
-        if ( m_contained.size() <= 1 || m_width < 20 || m_height < 20 )
+        if ( m_contained.size() <= 1 || m_width <= 20 || m_height <= 20 )
         {
             // We only contain one point we are done!
             m_done = true;
@@ -161,6 +169,7 @@ namespace wilvin
             }
 
             m_done = true;
+            m_running = false;
         }
         return 1;
     }

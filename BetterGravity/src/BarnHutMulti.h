@@ -43,7 +43,7 @@ namespace wilvin
                       const int height,
                       const int numThreads,
                       const std::vector<VPoint *> contained );
-        ~BarnHutMulti();
+        virtual ~BarnHutMulti();
         bool isDone();
         bool isStarted();
         void startSolve();
